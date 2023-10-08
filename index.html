@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Up Form</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        input[type="submit"] {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign-Up</h2>
+        <form id="signup-form">
+            <label for="email">User Email:</label>
+            <input type="text" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="submit" value="Sign Up">
+        </form>
+        <p class="error" id="error-message"></p>
+    </div>
+
+    <script>
+        const form = document.getElementById('signup-form');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('error-message');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+            // Email validation using a regular expression
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isEmailValid = emailRegex.test(email);
+
+            // Password validation
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            const isPasswordValid = passwordRegex.test(password);
+
+            if (!isEmailValid) {
+                errorMessage.textContent = 'Invalid email format. Please enter a valid email address.';
+            } else if (!isPasswordValid) {
+                errorMessage.textContent = 'Invalid password format. Password must contain at least 8 characters, one uppercase letter, one special character, and one number.';
+            } else {
+                errorMessage.textContent = '';
+                alert('Sign-up successful!');
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>
